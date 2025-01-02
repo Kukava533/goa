@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>მომხმარებლის მონაცემები</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .form-container {
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+      width: 200px;
+    }
+
+    .user-list {
+      margin-top: 20px;
+    }
+
+    .user-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>მომხმარებლის მონაცემები</h1>
+
+<div class="form-container">
+  <label for="firstName">სახელი:</label>
+  <input type="text" id="firstName" placeholder="სახელი">
+  <br>
+  <label for="lastName">გვარი:</label>
+  <input type="text" id="lastName" placeholder="გვარი">
+  <br>
+  <label for="age">ასაკი:</label>
+  <input type="number" id="age" placeholder="ასაკი">
+  <br>
+  <label for="idNumber">პირადი ნომერი (ID):</label>
+  <input type="text" id="idNumber" placeholder="პირადი ნომერი">
+  <br>
+  <label for="height">სიმაღლე:</label>
+  <input type="number" id="height" placeholder="სიმაღლე (მ)">
+  <br>
+  <label for="description">აღწერა:</label>
+  <input type="text" id="description" placeholder="მოკლე აღწერა">
+  <br>
+  <label for="email">ელ. ფოსტა:</label>
+  <input type="email" id="email" placeholder="ელ. ფოსტა" disabled>
+  <br>
+  <button onclick="addUser()">მომხმარებლის დამატება</button>
+</div>
+
+<div class="user-list" id="userList"></div>
+
+<script>
+  // სარანდომო ელ. ფოსტა
+  function generateRandomEmail(firstName, lastName, age) {
+    const randomNum = Math.floor(Math.random() * 1000);
+    return `${firstName.toLowerCase()}.${lastName.toLowerCase()}${age}${randomNum}@gmail.com`;
+  }
+
+  // მომხმარებლის მონაცემების დამატება
+  function addUser() {
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const age = document.getElementById('age').value;
+    const idNumber = document.getElementById('idNumber').value;
+    const height = document.getElementById('height').value;
+    const description = document.getElementById('description').value;
+
+    // ელ. ფოსტა ავტომატურად გენერირება
+    const email = generateRandomEmail(firstName, lastName, age);
+
+    // მომხმარებლის მონაცემების გამოსახვა
+    const userList = document.getElementById('userList');
+    const userCard = document.createElement('div');
+    userCard.classList.add('user-card');
+
+    userCard.innerHTML = `
+      <h3>${firstName} ${lastName}</h3>
+      <p><strong>ასაკი:</strong> ${age}</p>
+      <p><strong>პირადი ნომერი:</strong> ${idNumber}</p>
+      <p><strong>სიმაღლე:</strong> ${height} მ</p>
+      <p><strong>აღწერა:</strong> ${description}</p>
+      <p><strong>ელ. ფოსტა:</strong> ${email}</p>
+    `;
+
+    userList.appendChild(userCard);
+
+    // ფორმის გასუფთავება
+    document.getElementById('firstName').value = '';
+    document.getElementById('lastName').value = '';
+    document.getElementById('age').value = '';
+    document.getElementById('idNumber').value = '';
+    document.getElementById('height').value = '';
+    document.getElementById('description').value = '';
+  }
+</script>
+
+</body>
+</html>
